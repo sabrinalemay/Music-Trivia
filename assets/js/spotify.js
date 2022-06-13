@@ -19,7 +19,7 @@ fetch(authEndpoint, {
 }).then(function(response) {
     return response.json();
 }).then(function(payload) {
-    console.log(payload);
+    console.log(payload.access_token);
     var genreEndpoint = "https://api.spotify.com/v1/recommendations/available-genre-seeds";
 
     var userHeaders = {

@@ -160,6 +160,14 @@ startButton.addEventListener('click', function () {
         // genreText.setAttribute("id", musicObjectArr.id);
         
     }
+    answerListValueText.addEventListener('click', function (event) {
+        // get the question id 
+        let questionId = cardTitle.getAttribute('qId');
+        // get the answer id of the answer the user clicked.
+        let userAnswer = answerListValueText.getAttribute('answerId');
+        // pass the question Id and the answer id to the checkAnswer function to process the response.
+        checkAnswer(userAnswer, questionId);
+}
     // questionIndex = questionIndex + 1;
     // setQuizQuestion(questionIndex);
 });

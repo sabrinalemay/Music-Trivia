@@ -19,8 +19,8 @@ fetch(authEndpoint, {
 }).then(function(response) {
     return response.json();
 }).then(function(payload) {
-    console.log(payload.access_token);
-    var genreEndpoint = "https://api.spotify.com/v1/recommendations/available-genre-seeds";
+    console.log(payload);
+    var genreEndpoint = "https://open.spotify.com/playlist/37i9dQZF1DX4UtSsGT1Sbe?si=97318a04e8474f63";
 
     var userHeaders = {
         'Authorization': 'Bearer ' + payload.access_token,
@@ -34,5 +34,6 @@ fetch(authEndpoint, {
         console.log(payload);
     });
 });
+
 
 

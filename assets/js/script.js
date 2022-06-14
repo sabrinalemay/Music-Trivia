@@ -24,6 +24,46 @@ $("#modal-close-btn").on("click", function () {
 
 showModal();
 
+
+// End View JS
+
+if(localStorage.getItem("music-trivia-scores") == null){
+    localStorage.setItem("music-trivia-scores", JSON.stringify([]));
+}
+
+$("#submit-btn").click(function(){
+    addUserScore($("#username-input").val(), $("#points").text());
+    location.reload();
+});
+
+var userScores = JSON.parse(localStorage.getItem("music-trivia-scores"));
+
+function addUserScore(user, score){
+    userScores.push([user, score]);
+    localStorage.setItem("music-trivia-scores", JSON.stringify(sortScores(userScores)));
+}
+
+function sortScores(arrayOfArrays){
+    return arrayOfArrays.sort((a, b) => b[1] - a[1]);
+};
+
+// Display High Scores in High Score Modal
+
+for(let i = 1; i < 6; i++){
+    $(`#user-${i}`).text(userScores[i-1][0]);
+    $(`#score-${i}`).text(userScores[i-1][1]);
+}
+
+// Spotify API
+const clientid = "";
+const clientsecret = "";
+
+const _getToken = async() => {
+    const result = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: ""
+    })
+}
 // start quiz
 let questionIndex = 0;
 let possibleAnswers = 3;
@@ -89,29 +129,27 @@ function setQuizQuestion(questionIndex) {
 };
 
 
-// function setQuizQuestion(questionIndex) {
-//     // console.log(questionIndex);
-// };
-// userAnswer = 2;
-// questionId = 1;
-// var score = 0;
+function setQuizQuestion(questionIndex) {
+    // console.log(questionIndex);
+};
+var score = 0;
 
-// // function getAnswer(userAnswer, questionId) {
-//     startQuizButton.addEventListener('click', function () {
+// function getAnswer(userAnswer, questionId) {
+    startQuizButton.addEventListener('click', function () {
 
-//     questionIndex += 1;
-//     answer= answerKey.find(currentQuestion => currentQuestion.id == questionId);
-//     if (answer.correctAnswer == userAnswer) {
-//         // answerResponse.textContent = "Correct";
-//          score = score + 5;
-//         console.log("correctAnswer");
-//         console.log(score);
-//     } else {
-//         //answerResponse.textContent = "Incorrect";
-//         console.log("incorrentAnswer");
-//         console.log(score);
-//     }
-// });
+    questionIndex += 1;
+    answer= musicAnswerKey.find(currentQuestion => currentQuestion.id == questionId);
+    if (answer.correctAnswer == userAnswer) {
+        // answerResponse.textContent = "Correct";
+         score = score + 5;
+        console.log("correctAnswer");
+        console.log(score);
+    } else {
+        //answerResponse.textContent = "Incorrect";
+        console.log("incorrentAnswer");
+        console.log(score);
+    }
+});
 
 let quizQuestions = [{
     "id": 1,

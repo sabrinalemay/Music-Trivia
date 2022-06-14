@@ -107,6 +107,7 @@ fetch('./assets/snippets/newsitem.html').then(function (response) {
 
 	// Get the html snippet for the news card.
 	var newsWrapper = snippet.getElementById('news-article');
+    newsWrapper = snippet.getElementById('news-article');
 	console.log(newsWrapper);
 
 }).catch(function (err) {
@@ -117,11 +118,13 @@ fetch('./assets/snippets/newsitem.html').then(function (response) {
 
 // then write function to loop through the articleArr and build an html snippet for each article.
 
-for(i=0; i<= newsWrapper.length;i++){
+// for(i=0; i<= articleOnbjectArr.length;i++){
 
 	
 
-}
+// }
+
+news 
 
 
 // }

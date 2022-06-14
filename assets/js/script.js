@@ -1,4 +1,5 @@
 var showingModal = false;
+
 function showModal() {
     if (showingModal == true) {
         $("#modal").css("display", "block");
@@ -28,10 +29,12 @@ $("#submit-btn").click(function () {
     location.reload();
 });
 var userScores = JSON.parse(localStorage.getItem("music-trivia-scores"));
+
 function addUserScore(user, score) {
     userScores.push([user, score]);
     localStorage.setItem("music-trivia-scores", JSON.stringify(sortScores(userScores)));
 }
+
 function sortScores(arrayOfArrays) {
     return arrayOfArrays.sort((a, b) => b[1] - a[1]);
 };
@@ -56,9 +59,7 @@ var buttonContainerChildDiv = document.createElement("div");
 var buttonContainer = document.createElement("div");
 var startButton = document.createElement("button");
 var heroBg = document.getElementById('hero-bg');
-var heroBgClass= "relative shadow-xl sm:rounded-2xl sm:overflow-hidden";
-
-
+var heroBgClass = "relative shadow-xl sm:rounded-2xl sm:overflow-hidden";
 
 
 function setStage() {
@@ -75,7 +76,7 @@ var selectedGenre = "";
 
 eighties.addEventListener('click', function () {
     setStage();
-    heroBgClass=heroBgClass+" bg-purple-600";
+    heroBgClass = heroBgClass + " bg-purple-600";
     selectedGenre = "eighties";
     genreText.remove();
     heroText.textContent = "80's Hits";
@@ -120,32 +121,76 @@ let questionIndex = 0;
 startButton.addEventListener('click', function () {
     startButton.remove();
     heroImage.remove();
+    setGameQuestion(questionIndex);
+
+});
+
+
+function setGameQuestion(questionIndex) {
+
     heroText.textContent = musicObjectArr[questionIndex].triviaQ;
+    heroText.setAttribute("question-value", questionIndex);
     let buttonWrapper = document.getElementById('wrapper');
-    buttonWrapper.setAttribute("class","answerWrapper");
+    buttonWrapper.setAttribute("class", "answerWrapper");
     var answerContainer = document.createElement('div');
-    answerContainer.setAttribute('class',"grid grid-cols-1 gap-4 sm:grid-cols-2");
+    answerContainer.setAttribute('class', "grid grid-cols-1 gap-4 sm:grid-cols-2");
     heroBg.setAttribute("class", heroBgClass);
+    var playParent = document.createElement('div');
+        var playChildOne = document.createElement('div');
+        var playChildOneOne = document.createElement('div');
+        var playImage = document.createElement('img');
+        var playChildTwo = document.createElement('div');
+        var playChildTwoOne = document.createElement('div');
+        var playChildTwoAhref = document.createElement('a');
+        var playChildTwoPara = document.createElement('p');
+        playParent.setAttribute("class", "max-w-md mx-auto rounded-xl overflow-hidden md:max-w-2xl play-parent");
+        playChildOne.setAttribute("class", "md:flex play-child-one");
+        playChildOneOne.setAttribute("class", "md:shrink-0 play-child-one-one");
+        playImage.setAttribute("class", "h-48 w-full object-cover md:h-full md:w-80 play-image");
+        playImage.setAttribute("src",musicObjectArr[questionIndex].track_image);
+        playChildTwo.setAttribute("class", "p-8 play-child-two");
+        playChildTwoOne.setAttribute("class", "uppercase tracking-wide text-sm text-indigo-500 font-semibold play-child-two-one");
+        playChildTwoAhref.setAttribute("class", "block mt-1 text-xl font-semibold text-gray-900 leading-tight font-medium  play-child-two-a");
+        playChildTwoAhref.textContent = "Click Here to Play a Sample of the Song";
+        playChildTwoAhref.setAttribute("href",musicObjectArr[questionIndex].preview_url);
+        playChildTwoAhref.setAttribute("target","_blank");
+        console.log(musicObjectArr[questionIndex].preview_url);
+        playChildTwoPara.setAttribute("class", "mt-2 text-slate-500 play-child-two-p");
+        playChildTwoOne.appendChild(playChildTwoAhref);
+        playChildTwoOne.appendChild(playChildTwoPara);
+        playChildTwo.appendChild(playChildTwoOne);
+        playChildOneOne.appendChild(playImage);
+        playChildOne.appendChild(playChildOneOne);
+        playChildOne.appendChild(playChildTwo);
+        playParent.appendChild(playChildOne);
+        hero.appendChild(playParent);
+
     for (i = 0; i < 4; i++) {
+        
         
         var answerContainerChildTwo = document.createElement('div');
         var answerContainerChildThree = document.createElement('div');
         var answerImage = document.createElement('img');
         var answerContainerChildFour = document.createElement('div');
-        var answerChoice = document.createElement('div');
+        var answerChoice = document.createElement('a');
         var answerChoiceText = document.createElement('p');
 
-        answerChoiceText.textContent=musicObjectArr[questionIndex].possible_answers[i];
-        answerChoiceText.setAttribute("questionVal", i);
+        // answerContainerChildThree
+        answerImage.style.pointerEvents = 'none';
+        answerContainerChildFour.style.pointerEvents = 'none';
+        answerChoice.style.pointerEvents = 'none';
+        answerChoiceText.style.pointerEvents = 'none';
+        answerChoiceText.textContent = musicObjectArr[questionIndex].possible_answers[i];
         
-
+        answerContainerChildTwo.setAttribute("aid", i);
+        //console.log(answerContainerChildTwo);
         answerContainerChildTwo.setAttribute("class", "relative rounded-lg border border-gray-300 bg-white px-6 py-6 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500");
         answerContainerChildThree.setAttribute("class", "flex-shrink-0");
         answerImage.setAttribute("class", "h-5 w-5 rounded-full");
         answerImage.setAttribute("src", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Small-dark-green-circle.svg/1200px-Small-dark-green-circle.svg.png");
         answerImage.setAttribute("alt", "Green Circle");
+
         answerContainerChildFour.setAttribute("class", "flex-1 min-w-0");
-        answerChoice.setAttribute("href", "#");
         answerChoice.setAttribute("class", "focus:outline-none");
         answerChoiceText.setAttribute("class", "text-sm font-medium text-gray-900");
 
@@ -156,74 +201,47 @@ startButton.addEventListener('click', function () {
         answerContainerChildTwo.appendChild(answerContainerChildFour);
         answerContainer.appendChild(answerContainerChildTwo);
         buttonWrapper.appendChild(answerContainer);
-        // genreText.innerHTML = musicObjectArr[0].questionText;
-        // genreText.setAttribute("id", musicObjectArr.id);
-        
+        answerContainerChildTwo.addEventListener('click', function (event) {
+            var userChoice = event.target.getAttribute("aid");
+            var questioNumber = heroText.getAttribute('question-value');
+            heroText.textContent = "";
+            answerContainer.remove();
+            checkAnswer(userChoice, questioNumber);
+        })
+
     }
-    // questionIndex = questionIndex + 1;
-    // setQuizQuestion(questionIndex);
-});
+
+
+
+};
 
 var score = 0;
-// function getAnswer(userAnswer, questionId) {
-// startButton.addEventListener('click', function () {
-//     questionIndex += 1;
-//     answer = musicAnsKey.find(currentQuestion => currentQuestion.id == questionId);
-//     if (answer.correctAnswer == userAnswer) {
-//         // answerResponse.textContent = "Correct";
-//         score = score + 5;
-//         console.log("correctAnswer");
-//         console.log(score);
-//     } else {
-//         //answerResponse.textContent = "Incorrect";
-//         console.log("incorrentAnswer");
-//         console.log(score);
-//     }
-// });
-let quizQuestions = [{
-    "id": 1,
-    "questionText": "Commonly Used Data Types DO NOT include:",
-    "answers": ["strings", "booleans", "alerts", "numbers"]
-},
-{
-    "id": 2,
-    "questionText": "The condition if/else statement is enclosed within ______.",
-    "answers": ["quotes", "curly brackets", "parentheses", "square brackets"]
-},
-{
-    "id": 3,
-    "questionText": "String values must be enclosed within ______ when being assinged to variables.",
-    "answers": ["parentheses", "curly brackets", "quotes", "square brackets"]
-},
-{
-    "id": 4,
-    "questionText": "A very useful tool used during development and debugging for printing content to the debugger is:",
-    "answers": ["JavaScript", "terminal/branch", "for loops", "console.log"]
-},
-{
-    "id": 5,
-    "questionText": "Which method is used to reset the timer interval?",
-    "answers": ["reset()", "clearInterval()", "function()", "resetTimer()"]
-}
-];
-let answerKey = [{
-    "id": 1,
-    "correctAnswer": 2
-},
-{
-    "id": 2,
-    "correctAnswer": 2
-},
-{
-    "id": 3,
-    "correctAnswer": 2
-},
-{
-    "id": 4,
-    "correctAnswer": 3
-},
-{
-    "id": 5,
-    "correctAnswer": 1
-}
-];
+
+function checkAnswer(userChoice, questioNumber) {
+    questionIndex += 1;
+    theAnswer = musicAnsKey.find(theQuestion => theQuestion.id == questioNumber);
+    console.log(theAnswer);
+    if (theAnswer.correctAnswerIndex == userChoice) {
+        // answerResponse.textContent = "Correct";
+        score = score + 5;
+        console.log("correctAnswer");
+        console.log(score);
+    } else {
+        //answerResponse.textContent = "Incorrect";
+        console.log("incorrentAnswer");
+        console.log(score);
+    }
+    if (questionIndex < 5) {
+
+        setGameQuestion(questionIndex);
+    } else {
+        endGame();
+    }
+};
+
+function endGame() {
+
+    console.log(score);
+    console.log("The End");
+
+};

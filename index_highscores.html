@@ -6,15 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- <script src="./assets/js/spotify.js"></script> -->
-  <script src="./assets/js/spotifyresponse.js"></script>
-  <script src="./assets/js/trivialogic.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="assets/js/spotify.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spotify-web-api-js/1.5.2/spotify-web-api.js" integrity="sha512-lNAdXpUi8E6pEVDtriZ7PbNF1m9W4wYKawVkmkppB9aTBPNMmQPQmb/9LiH3qXG10DLHleRDPK4Sm2v14dIO7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <title>Music Trivia</title>
 </head>
 
 <body>
+    <div id="test"></div>
   <header class="bg-indigo-900">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2" aria-label="Top">
       <div class="space-x-8">
@@ -31,9 +32,30 @@
     </nav>
   </header>
   <div id="modal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!--
+          Background backdrop, show/hide based on modal state.
+      
+          Entering: "ease-out duration-300"
+            From: "opacity-0"
+            To: "opacity-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
     <div class="fixed z-10 inset-0 overflow-y-auto">
       <div class="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+        <!--
+                Modal panel, show/hide based on modal state.
+        
+                Entering: "ease-out duration-300"
+                    From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                    To: "opacity-100 translate-y-0 sm:scale-100"
+                Leaving: "ease-in duration-200"
+                    From: "opacity-100 translate-y-0 sm:scale-100"
+                    To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                -->
         <div
           class="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6">
           <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-white-100">
@@ -46,18 +68,18 @@
             <div class="mt-2 px-2">
               <div class="columns-2 text-lg font-bold">
                 <ol class="text-left">
-                  <li>1. <span id="user-1">Jake</span></li>
-                  <li>2. <span id="user-2">Jake</span></li>
-                  <li>3. <span id="user-3">Jake</span></li>
-                  <li>4. <span id="user-4">Jake</span></li>
-                  <li>5. <span id="user-5">Jake</span></li>
+                  <li>1. <span id="user-1"></span></li>
+                  <li>2. <span id="user-2"></span></li>
+                  <li>3. <span id="user-3"></span></li>
+                  <li>4. <span id="user-4"></span></li>
+                  <li>5. <span id="user-5"></span></li>
                 </ol>
                 <ol class="text-right">
-                  <li><span id="score-1">pc</span></li>
-                  <li><span id="score-2">32</span></li>
-                  <li><span id="score-3">312</span></li>
-                  <li><span id="score-4">32</span></li>
-                  <li><span id="score-5">32</span></li>
+                  <li><span id="score-1"></span></li>
+                  <li><span id="score-2"></span></li>
+                  <li><span id="score-3"></span></li>
+                  <li><span id="score-4"></span></li>
+                  <li><span id="score-5"></span></li>
                 </ol>
               </div>
             </div>
@@ -71,69 +93,91 @@
     </div>
   </div>
   <!-- Hero card -->
-  <div>
+  <!-- <div>
     <div class="relative">
-      <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
+      <div class="absolute inset-x-0 bottom-0 h-1/2 bg-transparent"></div>
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div id="hero-bg" class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
+        <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
           <div class="absolute inset-0">
-            <img id="hero-image" class="h-full w-full object-cover" src="./assets/images/homepage-hero.png"
-              alt="Hero Homepage">
+            <img class="h-full w-full object-cover" id="hero" src="./assets/images/homepage-hero.png"
+              alt="People singing for 80's">
             <div class="absolute inset-0 mix-blend-multiply"></div>
           </div>
-          <div id="hero" class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+          <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
             <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-              <span id="hero-text" class="block text-white">The internet's most amazing trivia game</span>
+              <span class="block text-white">The internet's most amazing music trivia game</span>
             </h1>
+            <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">Anim aute id magna aliqua
+              ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
+              fugiat aliqua.</p>
+            <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- genre content -->
-    <div id="wrapper">
-    <div id="genreText" class="bg-gray-100">
-      <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <p class="text-center text-sm font-semibold uppercase text-gray-500 tracking-wide">Pick your favorite
-          decade!</p>
-      </div>
-      <div id="content-wrapper" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-x-4">
-        <button id="eightiesBtn"
-          class="inline-flex items-center h-20 w-40 px-12 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-              clip-rule="evenodd" />
-          </svg>80's</button>
-        <button id="nintiesBtn"
-          class="inline-flex items-center h-20 w-40 px-12 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-              clip-rule="evenodd" />
-          </svg>90's</button>
-        <button id="earlyBtn"
-          class="inline-flex items-center h-20 w-40 px-12 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-              clip-rule="evenodd" />git
-          </svg>00's</button>
-        <button id="currentBtn"
-          class="inline-flex items-center h-20 w-40 px-12 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-              clip-rule="evenodd" />
-          </svg>10's</button>
+  </div> -->
+  <div>
+    <div class="relative">
+      <div class="absolute inset-x-0 bottom-0 h-1/2 bg-transparent"></div>
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
+          <div class="absolute inset-0">
+            <img class="h-full w-full object-cover" id="hero" src="./assets/images/homepage-hero.png"
+              alt="People singing for 80's">
+            <div class="absolute inset-0 mix-blend-multiply"></div>
+          </div>
+          <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+            <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              <span class="block text-white">Time's Up</span>
+            </h1>
+            <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl"></p>
+            <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <!-- End View -->
+  <div id = "end-view">
+    <div class="grid grid-cols-4 gap-4 pt-4">
+        <div></div>
+        <div class="flex flex-row border-solid border-2 border-sky-500 h-20 justify-evenly">
+            <i class="fa-solid fa-star"></i>
+            <div class="flex flex-col">
+                <div><span id = "points">10000</span> Points</div>
+                <div>Your Score</div>
+            </div>
+            <div class="flex flex-col">
+                <div><span id = "number-correct">10</span></div>
+                <div>Correct</div>
+            </div>
+            <div class="flex flex-col">
+                <div><span id = "number-incorrect">14323</span></div>
+                <div>Incorrect</div>
+            </div>
+        </div>
+        <a href = "mailto:abc@example.com?subject = Feedback&body = Message" class="flex flex-row border-solid border-2 border-sky-500 h-20 justify-evenly">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            <div>Share Your Score</div>
+        </a>
+        <div></div>
+        <div></div>
+        <div class = "col-span-2">
+            <div class="flex flex-row border-solid border-2 border-sky-500 h-20 justify-evenly">
+                <div>fire icon</div>
+                    <h1>Save your Highscore</h1>
+                    <input id = "username-input" class = "border-solid border-2 border-sky-500" type="text" id="fname" name="fname"><br>
+                    <button id = "submit-btn" class = "border-solid border-2 border-sky-500">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div></div>
+      </div>
   </div>
-
-
   <!-- Footer -->
-  <footer class="bg-white">
+  <footer class="bg-transparent">
     <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
       <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
         <div class="px-5 py-2">
@@ -181,14 +225,18 @@
               clip-rule="evenodd" />
           </svg>
         </a>
-
+        <div id="wrapper">
+            2:15
+            <div id="button-parent" class="max-w-3xl mx-auto">
+            </div>
+        </div>
 
       </div>
       <p class="mt-8 text-center text-base text-gray-400">&copy; 2022 Musicmindz, Inc. All rights reserved.</p>
     </div>
   </footer>
-
 </body>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/confetti.js"></script>
 
 </html>

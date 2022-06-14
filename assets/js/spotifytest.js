@@ -1,0 +1,133 @@
+
+
+var musicObjectArr = [{
+    "artist_name": musicObject.tracks.items[0].track.artists[0].name, // Who is the artist that is featured on this song?
+    "song_name": musicObject.tracks.items[0].track.name, // What is the name of this song?
+    "song_year":musicObject.tracks.items[0].track.album.release_date,
+    "album_name":musicObject.tracks.items[0].track.album.name,
+    // "song_genres":[],
+    "preview_url":musicObject.tracks.items[0].track.preview_url
+}
+// , 
+// {
+//     "artist_name": musicObject.tracks.items[49].track.artists[0].name, // Who is the artist that is featured on this song?
+//     "song_name": musicObject.tracks.items[49].track.name, // What is the name of this song?
+//     "song_year":musicObject.tracks.items[49].track.album.release_date,
+//     "album_name":musicObject.tracks.items[49].track.album.name,
+//     // "song_genres":[],
+//     "preview_url":musicObject.tracks.items[49].track.preview_url
+// }, 
+// {
+//     "artist_name": musicObject.tracks.items[18].track.artists[0].name, // Who is the artist that is featured on this song?
+//     "song_name": musicObject.tracks.items[18].track.name, // What is the name of this song?
+//     "song_year":musicObject.tracks.items[18].track.album.release_date,
+//     "album_name":musicObject.tracks.items[18].track.album.name,
+//     // "song_genres":[],
+//     "preview_url":musicObject.tracks.items[18].track.preview_url
+// }, 
+// {
+//     "artist_name": musicObject.tracks.items[92].track.artists[0].name, // Who is the artist that is featured on this song?
+//     "song_name": musicObject.tracks.items[92].track.name, // What is the name of this song?
+//     "song_year":musicObject.tracks.items[92].track.album.release_date,
+//     "album_name":musicObject.tracks.items[92].track.album.name,
+//     // "song_genres":[],
+//     "preview_url":musicObject.tracks.items[92].track.preview_url
+// }
+];
+
+
+
+    //	select a random question type
+
+    const selectedQuestionType = Math.floor(Math.random() * musicObject.tracks.items.length);
+    // console.log(selectedQuestionType, musicObjectArr[selectedQuestionType]);
+    var possibleAnswers = [];
+    var musicObjectArr = [];
+    questionTypes = ["artist_name", "song_name", "song_year", "album_name"];
+    console.log(musicObjectArr);
+    // var objectIndex = musicObjectArr[selectedQuestionType];
+    for(let i = 0; i < 5; i++){
+        var possibleAnswers = [];
+        // console.log(Math.floor(Math.random() * musicObject.tracks.items.length), musicObjectArr[selectedQuestionType]);
+        var objectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+        var qType = Math.floor(Math.random() * questionTypes.length);
+        var triviaQuestion = "";
+        console.log(qType);
+        if(qType == 0){
+            triviaQuestion = "Who sang this song?";
+            for(let i = 0; i < 3; i++){
+                var wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                while(wrongObjectIndex == objectIndex){
+                    wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                }
+                possibleAnswers.push(musicObject.tracks.items[wrongObjectIndex].track.artists[0].name);
+            }
+            randPositionIndex = Math.floor(Math.random() * 4);
+            console.log(randPositionIndex, objectIndex);
+            // possibleAnswers.splice(randPositionIndex, 0, musicObject.tracks.items[objectIndex].track.artists[0].name)
+            // possibleAnswers.push(musicObject.tracks.items[objectIndex].track.artists[0].name);
+        }else if(qType == 1){
+            triviaQuestion = "What is the name of this song?";
+            for(let i = 0; i < 3; i++){
+                var wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                while(wrongObjectIndex == objectIndex){
+                    wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                }
+                possibleAnswers.push(musicObject.tracks.items[wrongObjectIndex].track.name);
+            }
+            randPositionIndex = Math.floor(Math.random() * 4);
+            // possibleAnswers.splice(randPositionIndex, 0, musicObject.tracks.items[wrongObjectIndex].track.name)
+            // possibleAnswers.push(musicObject.tracks.items[objectIndex].track.name);
+        }else if(qType == 2){
+            triviaQuestion = "What year was this song made?"
+            for(let i = 0; i < 3; i++){
+                var wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                while(wrongObjectIndex == objectIndex){
+                    wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                }
+                possibleAnswers.push(musicObject.tracks.items[wrongObjectIndex].track.album.release_date);
+            }
+            // randPositionIndex = Math.floor(Math.random() * 4);
+            // possibleAnswers.splice(randPositionIndex, 0, musicObject.tracks.items[wrongObjectIndex].track.album.release_date)
+            // possibleAnswers.push(musicObject.tracks.items[objectIndex].track.album.release_date);
+        }else if(qType == 3){
+            triviaQuestion = "What is the name of this song's album?"
+            for(let i = 0; i < 3; i++){
+                var wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                while(wrongObjectIndex == objectIndex){
+                    wrongObjectIndex = Math.floor(Math.random() * musicObject.tracks.items.length);
+                }
+                // possibleAnswers.push(musicObject.tracks.items[wrongObjectIndex].track.album.name);
+            }
+            randPositionIndex = Math.floor(Math.random() * 4);
+            // possibleAnswers.splice(randPositionIndex, 0, musicObject.tracks.items[wrongObjectIndex].track.album.name)
+            // possibleAnswers.push(musicObject.tracks.items[objectIndex].track.album.name);
+        }
+        console.log(objectIndex);
+        var musicObj = {
+            "artist_name": musicObject.tracks.items[objectIndex].track.artists[0].name, // Who is the artist that is featured on this song?
+            "song_name": musicObject.tracks.items[objectIndex].track.name, // What is the name of this song?
+            "song_year":musicObject.tracks.items[objectIndex].track.album.release_date,
+            "album_name":musicObject.tracks.items[objectIndex].track.album.name,
+            // "song_genres":[],
+            "qType":qType,
+            "triviaQ":triviaQuestion,
+            "preview_url":musicObject.tracks.items[objectIndex].track.preview_url,
+            "possible_answers":possibleAnswers
+        };
+        musicObjectArr.push(musicObj);
+    };
+    console.log(musicObjectArr);
+
+    // function threeWrongAns(questionType, objectIndex){
+    //     if(qType == 0){
+    //         triviaQuestion = "Who sang this song?";
+    //     }else if(qType == 1){
+    //         triviaQuestion = "What is the name of this song?";
+    //     }else if(qType == 2){
+    //         triviaQuestion = "What year was this song made?"
+    //     }else if(qType == 3){
+    //         triviaQuestion = "What is the name of this song's album?"
+    //     }
+    //     var wrongAnswer = "";
+    // }

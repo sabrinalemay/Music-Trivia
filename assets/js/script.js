@@ -49,9 +49,11 @@ function sortScores(arrayOfArrays){
 
 // Display High Scores in High Score Modal
 
-for(let i = 1; i < 6; i++){
-    $(`#user-${i}`).text(userScores[i-1][0]);
-    $(`#score-${i}`).text(userScores[i-1][1]);
+if(userScores.length > 0){
+    for(let i = 1; i < 6; i++){
+        $(`#user-${i}`).text(userScores[i-1][0]);
+        $(`#score-${i}`).text(userScores[i-1][1]);
+    }
 }
 
 // Spotify API

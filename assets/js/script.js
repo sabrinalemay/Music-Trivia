@@ -60,7 +60,7 @@ var buttonContainer = document.createElement("div");
 var startButton = document.createElement("button");
 var heroBg = document.getElementById('hero-bg');
 var heroBgClass = "relative shadow-xl sm:rounded-2xl sm:overflow-hidden";
-
+var heroContainer = document.querySelector('.hero-container');
 
 function setStage() {
     buttonContainer.setAttribute("class", "mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center");
@@ -75,9 +75,11 @@ function setStage() {
 var selectedGenre = "";
 
 eighties.addEventListener('click', function () {
+
     setStage();
     heroBgClass = heroBgClass + " bg-purple-600";
     selectedGenre = "eighties";
+    getSpotifyResp(selectedGenre);
     genreText.remove();
     heroText.textContent = "80's Hits";
     buttonContainerChildDiv.appendChild(startButton);
@@ -86,8 +88,10 @@ eighties.addEventListener('click', function () {
     heroImage.setAttribute("src", "./assets/images/1980s-hero.png");
 });
 ninties.addEventListener('click', function () {
+
     setStage();
     selectedGenre = "ninties";
+    getSpotifyResp(selectedGenre);
     genreText.remove();
     heroText.textContent = "90's Hits";
     buttonContainerChildDiv.appendChild(startButton);
@@ -98,6 +102,7 @@ ninties.addEventListener('click', function () {
 early.addEventListener('click', function () {
     setStage();
     selectedGenre = "early";
+    getSpotifyResp(selectedGenre);
     genreText.remove();
     heroText.textContent = "00's Hits";
     buttonContainerChildDiv.appendChild(startButton);
@@ -108,6 +113,7 @@ early.addEventListener('click', function () {
 current.addEventListener('click', function () {
     setStage();
     selectedGenre = "current";
+    getSpotifyResp(selectedGenre);
     genreText.remove();
     heroText.textContent = "10's Hits";
     buttonContainerChildDiv.appendChild(startButton);
@@ -136,38 +142,38 @@ function setGameQuestion(questionIndex) {
     answerContainer.setAttribute('class', "grid grid-cols-1 gap-4 sm:grid-cols-2");
     heroBg.setAttribute("class", heroBgClass);
     var playParent = document.createElement('div');
-        var playChildOne = document.createElement('div');
-        var playChildOneOne = document.createElement('div');
-        var playImage = document.createElement('img');
-        var playChildTwo = document.createElement('div');
-        var playChildTwoOne = document.createElement('div');
-        var playChildTwoAhref = document.createElement('a');
-        var playChildTwoPara = document.createElement('p');
-        playParent.setAttribute("class", "max-w-md mx-auto rounded-xl overflow-hidden md:max-w-2xl play-parent");
-        playChildOne.setAttribute("class", "md:flex play-child-one");
-        playChildOneOne.setAttribute("class", "md:shrink-0 play-child-one-one");
-        playImage.setAttribute("class", "h-48 w-full object-cover md:h-full md:w-80 play-image");
-        playImage.setAttribute("src",musicObjectArr[questionIndex].track_image);
-        playChildTwo.setAttribute("class", "p-8 play-child-two");
-        playChildTwoOne.setAttribute("class", "uppercase tracking-wide text-sm text-indigo-500 font-semibold play-child-two-one");
-        playChildTwoAhref.setAttribute("class", "block mt-1 text-xl font-semibold text-gray-900 leading-tight font-medium  play-child-two-a");
-        playChildTwoAhref.textContent = "Click Here to Play a Sample of the Song";
-        playChildTwoAhref.setAttribute("href",musicObjectArr[questionIndex].preview_url);
-        playChildTwoAhref.setAttribute("target","_blank");
-        console.log(musicObjectArr[questionIndex].preview_url);
-        playChildTwoPara.setAttribute("class", "mt-2 text-slate-500 play-child-two-p");
-        playChildTwoOne.appendChild(playChildTwoAhref);
-        playChildTwoOne.appendChild(playChildTwoPara);
-        playChildTwo.appendChild(playChildTwoOne);
-        playChildOneOne.appendChild(playImage);
-        playChildOne.appendChild(playChildOneOne);
-        playChildOne.appendChild(playChildTwo);
-        playParent.appendChild(playChildOne);
-        hero.appendChild(playParent);
+    var playChildOne = document.createElement('div');
+    var playChildOneOne = document.createElement('div');
+    var playImage = document.createElement('img');
+    var playChildTwo = document.createElement('div');
+    var playChildTwoOne = document.createElement('div');
+    var playChildTwoAhref = document.createElement('a');
+    var playChildTwoPara = document.createElement('p');
+    playParent.setAttribute("class", "max-w-md mx-auto rounded-xl overflow-hidden md:max-w-2xl play-parent");
+    playChildOne.setAttribute("class", "md:flex play-child-one");
+    playChildOneOne.setAttribute("class", "md:shrink-0 play-child-one-one");
+    playImage.setAttribute("class", "h-48 w-full object-cover md:h-full md:w-80 play-image");
+    playImage.setAttribute("src", musicObjectArr[questionIndex].track_image);
+    playChildTwo.setAttribute("class", "p-8 play-child-two");
+    playChildTwoOne.setAttribute("class", "uppercase tracking-wide text-sm text-indigo-500 font-semibold play-child-two-one");
+    playChildTwoAhref.setAttribute("class", "block mt-1 text-xl font-semibold text-gray-900 leading-tight font-medium  play-child-two-a");
+    playChildTwoAhref.textContent = "Click Here to Play a Sample of the Song";
+    playChildTwoAhref.setAttribute("href", musicObjectArr[questionIndex].preview_url);
+    playChildTwoAhref.setAttribute("target", "_blank");
+    // console.log(musicObjectArr[questionIndex].preview_url);
+    playChildTwoPara.setAttribute("class", "mt-2 text-slate-500 play-child-two-p");
+    playChildTwoOne.appendChild(playChildTwoAhref);
+    playChildTwoOne.appendChild(playChildTwoPara);
+    playChildTwo.appendChild(playChildTwoOne);
+    playChildOneOne.appendChild(playImage);
+    playChildOne.appendChild(playChildOneOne);
+    playChildOne.appendChild(playChildTwo);
+    playParent.appendChild(playChildOne);
+    hero.appendChild(playParent);
 
     for (i = 0; i < 4; i++) {
-        
-        
+
+
         var answerContainerChildTwo = document.createElement('div');
         var answerContainerChildThree = document.createElement('div');
         var answerImage = document.createElement('img');
@@ -181,7 +187,7 @@ function setGameQuestion(questionIndex) {
         answerChoice.style.pointerEvents = 'none';
         answerChoiceText.style.pointerEvents = 'none';
         answerChoiceText.textContent = musicObjectArr[questionIndex].possible_answers[i];
-        
+
         answerContainerChildTwo.setAttribute("aid", i);
         //console.log(answerContainerChildTwo);
         answerContainerChildTwo.setAttribute("class", "relative rounded-lg border border-gray-300 bg-white px-6 py-6 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500");
@@ -206,6 +212,7 @@ function setGameQuestion(questionIndex) {
             var questioNumber = heroText.getAttribute('question-value');
             heroText.textContent = "";
             answerContainer.remove();
+            hero.innerHTML = "";
             checkAnswer(userChoice, questioNumber);
         })
 
@@ -220,28 +227,33 @@ var score = 0;
 function checkAnswer(userChoice, questioNumber) {
     questionIndex += 1;
     theAnswer = musicAnsKey.find(theQuestion => theQuestion.id == questioNumber);
-    console.log(theAnswer);
+    //console.log(theAnswer);
     if (theAnswer.correctAnswerIndex == userChoice) {
         // answerResponse.textContent = "Correct";
         score = score + 5;
-        console.log("correctAnswer");
-        console.log(score);
+        //console.log("correctAnswer");
+        //console.log(score);
     } else {
         //answerResponse.textContent = "Incorrect";
-        console.log("incorrentAnswer");
-        console.log(score);
+        //console.log("incorrentAnswer");
+        //console.log(score);
     }
     if (questionIndex < 5) {
 
         setGameQuestion(questionIndex);
     } else {
+
         endGame();
     }
 };
 
 function endGame() {
+    heroImage.setAttribute("src", "./assets/images/times-up-hero.png");
+    heroContainer.appendChild(heroImage);
+    hero.appendChild(heroContainer);
+    startConfetti();
 
-    console.log(score);
-    console.log("The End");
+    //console.log(score);
+    //console.log("The End");
 
 };

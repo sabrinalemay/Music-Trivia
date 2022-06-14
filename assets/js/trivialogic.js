@@ -1,7 +1,29 @@
     // check duplicate answers for date
+function getSpotifyResp(selectedGenre){
+    console.log(selectedGenre);
+    if(selectedGenre == "eighties"){
+        genreEndpoint = "https://open.spotify.com/playlist/37i9dQZF1DX4UtSsGT1Sbe?si=97318a04e8474f63";
 
+    }else if (selectedGenre == "nineties"){
+        genreEndpoint = "https://open.spotify.com/playlist/37i9dQZF1DXbTxeAdrVG2l?si=e733b40a623b4e9d";
+
+    }else if(selectedGenre == "early"){
+        genreEndpoint = "https://open.spotify.com/playlist/37i9dQZF1DX4o1oenSJRJd?si=77f2e7b1ceb446d2";
+
+    }else if(selectedGenre == "current"){
+        genreEndpoint = "https://open.spotify.com/playlist/37i9dQZF1DX5Ejj0EkURtP?si=50cd62ded1b84956";
+        
+    }else {
+        return "Error: Genre Not Found";
+    }
+    };
+    console.log(genreEndpoint);
+    //ninties
+    //eighties
+    //early
+    //current
     //	select a random question type
-
+    var genreEndpoint = "https://open.spotify.com/playlist/37i9dQZF1DX4UtSsGT1Sbe?si=97318a04e8474f63";
     const selectedQuestionType = Math.floor(Math.random() * musicObject.tracks.items.length);
     // console.log(selectedQuestionType, musicObjectArr[selectedQuestionType]);
     var possibleAnswers = [];

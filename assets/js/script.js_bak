@@ -115,8 +115,9 @@ function setQuizQuestion(questionIndex) {
 
 let quizQuestions = [{
     "id": 1,
-    "questionText": "Commonly Used Data Types DO NOT include:",
-    "answers": ["strings", "booleans", "alerts", "numbers"]
+    "questionText": "Who is the artist featured on this track?",
+    "answers": ["Chain Smokers", "Halsey", "Drake", "21 Savage"],
+    "previewURL": "www.google.com",
 },
 {
     "id": 2,

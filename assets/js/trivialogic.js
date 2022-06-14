@@ -1,40 +1,3 @@
-
-
-var musicObjectArr = [{
-    "artist_name": musicObject.tracks.items[0].track.artists[0].name, // Who is the artist that is featured on this song?
-    "song_name": musicObject.tracks.items[0].track.name, // What is the name of this song?
-    "song_year":musicObject.tracks.items[0].track.album.release_date,
-    "album_name":musicObject.tracks.items[0].track.album.name,
-    // "song_genres":[],
-    "preview_url":musicObject.tracks.items[0].track.preview_url
-}
-// , 
-// {
-//     "artist_name": musicObject.tracks.items[49].track.artists[0].name, // Who is the artist that is featured on this song?
-//     "song_name": musicObject.tracks.items[49].track.name, // What is the name of this song?
-//     "song_year":musicObject.tracks.items[49].track.album.release_date,
-//     "album_name":musicObject.tracks.items[49].track.album.name,
-//     // "song_genres":[],
-//     "preview_url":musicObject.tracks.items[49].track.preview_url
-// }, 
-// {
-//     "artist_name": musicObject.tracks.items[18].track.artists[0].name, // Who is the artist that is featured on this song?
-//     "song_name": musicObject.tracks.items[18].track.name, // What is the name of this song?
-//     "song_year":musicObject.tracks.items[18].track.album.release_date,
-//     "album_name":musicObject.tracks.items[18].track.album.name,
-//     // "song_genres":[],
-//     "preview_url":musicObject.tracks.items[18].track.preview_url
-// }, 
-// {
-//     "artist_name": musicObject.tracks.items[92].track.artists[0].name, // Who is the artist that is featured on this song?
-//     "song_name": musicObject.tracks.items[92].track.name, // What is the name of this song?
-//     "song_year":musicObject.tracks.items[92].track.album.release_date,
-//     "album_name":musicObject.tracks.items[92].track.album.name,
-//     // "song_genres":[],
-//     "preview_url":musicObject.tracks.items[92].track.preview_url
-// }
-];
-
     // check duplicate answers for date
 
     //	select a random question type
@@ -129,16 +92,3 @@ var musicObjectArr = [{
     };
     console.log(musicObjectArr);
     console.log(musicAnsKey);
-
-    // function threeWrongAns(questionType, objectIndex){
-    //     if(qType == 0){
-    //         triviaQuestion = "Who sang this song?";
-    //     }else if(qType == 1){
-    //         triviaQuestion = "What is the name of this song?";
-    //     }else if(qType == 2){
-    //         triviaQuestion = "What year was this song made?"
-    //     }else if(qType == 3){
-    //         triviaQuestion = "What is the name of this song's album?"
-    //     }
-    //     var wrongAnswer = "";
-    // }

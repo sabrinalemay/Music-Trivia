@@ -65,11 +65,11 @@ var heroContainer = document.querySelector('.hero-container');
 function setStage() {
     buttonContainer.setAttribute("class", "mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center");
     buttonContainer.setAttribute("id", "buttonContainer");
-
-    buttonContainerChildDiv.setAttribute("class", "space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5");
+    buttonContainerChildDiv.setAttribute("class", "space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5");
     buttonContainerChildDiv.setAttribute("id", "buttonContainerChildDiv");
     startButton.setAttribute("class", "flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8");
     startButton.setAttribute("id", "start");
+    startButton.textContent = "Click to Start Game";
 }
 
 var selectedGenre = "";
@@ -127,17 +127,19 @@ let questionIndex = 0;
 startButton.addEventListener('click', function () {
     startButton.remove();
     heroImage.remove();
+    hero.setAttribute("class", "relative px-4 py-16 sm:px-6 sm:py-24 lg:py-24 lg:px-8");
     setGameQuestion(questionIndex);
 
 });
 
+var buttonWrapper = document.getElementById('wrapper');
+buttonWrapper.setAttribute("class", "answerWrapper");
 
 function setGameQuestion(questionIndex) {
 
     heroText.textContent = musicObjectArr[questionIndex].triviaQ;
     heroText.setAttribute("question-value", questionIndex);
-    let buttonWrapper = document.getElementById('wrapper');
-    buttonWrapper.setAttribute("class", "answerWrapper");
+
     var answerContainer = document.createElement('div');
     answerContainer.setAttribute('class', "grid grid-cols-1 gap-4 sm:grid-cols-2");
     heroBg.setAttribute("class", heroBgClass);
@@ -210,9 +212,9 @@ function setGameQuestion(questionIndex) {
         answerContainerChildTwo.addEventListener('click', function (event) {
             var userChoice = event.target.getAttribute("aid");
             var questioNumber = heroText.getAttribute('question-value');
-            heroText.textContent = "";
             answerContainer.remove();
-            hero.innerHTML = "";
+            playParent.innerHTML = "";
+            playParent.remove();
             checkAnswer(userChoice, questioNumber);
         })
 
@@ -223,6 +225,8 @@ function setGameQuestion(questionIndex) {
 };
 
 var score = 0;
+var scoreIncorrect = 0;
+var scoreCorrect = 0;
 
 function checkAnswer(userChoice, questioNumber) {
     questionIndex += 1;
@@ -231,9 +235,11 @@ function checkAnswer(userChoice, questioNumber) {
     if (theAnswer.correctAnswerIndex == userChoice) {
         // answerResponse.textContent = "Correct";
         score = score + 5;
+        scoreCorrect += 1;
         //console.log("correctAnswer");
         //console.log(score);
     } else {
+        scoreIncorrect += 1;
         //answerResponse.textContent = "Incorrect";
         //console.log("incorrentAnswer");
         //console.log(score);
@@ -248,9 +254,92 @@ function checkAnswer(userChoice, questioNumber) {
 };
 
 function endGame() {
+
+    scoreArr = [{
+            "score": "Final Score",
+            "value": score
+        },
+        {
+            "score": "Number Incorrect",
+            "value": scoreIncorrect
+        },
+        {
+            "score": "Number Correct",
+            "value": scoreCorrect
+        }
+    ];
+    var statText = document.createElement('h3');
+    statText.setAttribute('class', 'text-lg leading-6 font-medium text-gray-900');
+    statText.textContent = "Final Tally";
+    var statParent = document.createElement('div');
+    var statContainerEl = document.createElement('div');
+    statContainerEl.setAttribute('class', "max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8");
+    var statContainer = document.createElement('dl');
+    statContainer.setAttribute('class', 'mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3');
+
+    statDivArr = [];
+    for (i = 0; i < scoreArr.length; i++) {
+
+        var statElOne = document.createElement('dt');
+        var statElTwo = document.createElement('dd');
+
+        statElOne.setAttribute('class', 'text-sm font-medium text-gray-500 truncate');
+        statElOne.textContent = scoreArr[i].score;
+        statElTwo.setAttribute('class', 'mt-1 text-3xl font-semibold text-gray-900');
+        statElTwo.textContent = scoreArr[i].value;
+        var statDataDiv = document.createElement('div');
+        statDataDiv.setAttribute('class', 'px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6');
+        statDataDiv.appendChild(statElOne);
+        statDataDiv.appendChild(statElTwo);
+        statContainer.appendChild(statDataDiv);
+
+    }
+    
+    statParent.appendChild(statText);
+    statParent.appendChild(statContainer);
+    statContainerEl.appendChild(statParent);
+    buttonWrapper.appendChild(statContainerEl);
+    hero.setAttribute("class", "relative px-4 py-16 sm:px-6 sm:py-24 lg:py-60 lg:px-8");
+    heroText.textContent = "Game Over";
     heroImage.setAttribute("src", "./assets/images/times-up-hero.png");
     heroContainer.appendChild(heroImage);
-    hero.appendChild(heroContainer);
+    heroBg.appendChild(heroContainer);
+    heroBg.appendChild(hero);
+
+    // // Contact Form    
+    // var contactContent = document.createElement('div');
+    // var contactContentH = document.createElement('h2');
+    // var contactContentP = document.createElement('p');
+    // var formParent = document.createElement('div');
+    // var formMain = document.createElement('form');
+    // var formEmail = document.createElement('label');
+    // var emailAddress = document.createElement('input');
+    // var formButtonParent = document.createElement('div');
+    // var contactChild = document.createElement('div');
+    // var contactParent = document.createElement('div');
+
+    // contactChild.setAttribute('class', 'amax-w-7xl mx-auto py-24 px-4 sm:px-6 lg:py-32 lg:px-8 lg:flex lg:items-center');
+    // contactContent.setAttribute('classs', 'lg:w-0 lg:flex-1');
+    // contactContentH.setAttribute('classs', 'text-3xl font-extrabold text-gray-900 sm:text-4xl');    
+    // contactContentP.setAttribute('class', 'mt-3 max-w-3xl text-lg text-gray-500 ');
+    // formParent.setAttribute('classs', 'mt-8 lg:mt-0 lg:ml-8');
+    // formParent.appendChild('formMain');
+    // formMain.setAttribute('class', 'sm:flex form-main');
+    // formMain.appendChild('formEmail');
+    // formMain.appendChild('emailAddress');
+    // formEmail.setAttribute('classs', 'sr-only ');
+    // emailAddress.setAttribute('classs', 'mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0');    
+    // formButtonParent.setAttribute('classs', 'mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0');
+    // formButtonParent.appendChild('formButtonText');
+
+    // contactChild.appendChild(contactContent);
+    // contactChild.appendChild(formParent);
+    // contactParent.setAttribute('classs', 'bg-white');
+    // contactContent.appednChild(contactContentH);
+    // contactContent.appednChild(contactContentP);
+    // contactParent.appendChild(contactChild);
+    // buttonWrapper.appendChild(contactParent);
+
     startConfetti();
 
     //console.log(score);

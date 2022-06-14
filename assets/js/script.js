@@ -129,29 +129,27 @@ function setQuizQuestion(questionIndex) {
 };
 
 
-// function setQuizQuestion(questionIndex) {
-//     // console.log(questionIndex);
-// };
-// userAnswer = 2;
-// questionId = 1;
-// var score = 0;
+function setQuizQuestion(questionIndex) {
+    // console.log(questionIndex);
+};
+var score = 0;
 
-// // function getAnswer(userAnswer, questionId) {
-//     startQuizButton.addEventListener('click', function () {
+// function getAnswer(userAnswer, questionId) {
+    startQuizButton.addEventListener('click', function () {
 
-//     questionIndex += 1;
-//     answer= answerKey.find(currentQuestion => currentQuestion.id == questionId);
-//     if (answer.correctAnswer == userAnswer) {
-//         // answerResponse.textContent = "Correct";
-//          score = score + 5;
-//         console.log("correctAnswer");
-//         console.log(score);
-//     } else {
-//         //answerResponse.textContent = "Incorrect";
-//         console.log("incorrentAnswer");
-//         console.log(score);
-//     }
-// });
+    questionIndex += 1;
+    answer= musicAnswerKey.find(currentQuestion => currentQuestion.id == questionId);
+    if (answer.correctAnswer == userAnswer) {
+        // answerResponse.textContent = "Correct";
+         score = score + 5;
+        console.log("correctAnswer");
+        console.log(score);
+    } else {
+        //answerResponse.textContent = "Incorrect";
+        console.log("incorrentAnswer");
+        console.log(score);
+    }
+});
 
 let quizQuestions = [{
     "id": 1,

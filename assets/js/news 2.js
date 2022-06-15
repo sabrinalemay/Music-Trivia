@@ -102,44 +102,26 @@ fetch('./assets/snippets/newsitem.html').then(function (response) {
 }).then(function (html) {
 
 	// Convert the HTML string into a document object
-	let parser = new DOMParser();
-	let snippet = parser.parseFromString(html, 'text/html');
-    let articleMedium = snippet.querySelector('.article-medium');
-    let articleImage = snippet.querySelector('.article-image');
-    articleImage.setAttribute("src",articleOnbjectArr[0].articleImage);
-    document.body.innerHTML = snippet;
-    
+	var parser = new DOMParser();
+	var snippet = parser.parseFromString(html, 'text/html');
 
-
-
-
-
+	// Get the html snippet for the news card.
+	var newsWrapper = snippet.getElementById('news-article');
+	console.log(newsWrapper);
 
 }).catch(function (err) {
 	// There was an error
 	console.warn('Something went wrong.', err);
 });
 
-newsObj = [];
 
-// for( i=0;i<6;i++){
-    
-//     let articleMedium = snippet.querySelector('.article-medium');
-//     let articleImage = snippet.querySelector('.article-image');
-//     let articleTitle =  snippet.querySelector('.article-title');
-//     let articleDescription = snippet.querySelector('.article-description');
-//     let articleAuthor = snippet.querySelector('.article-author');
-//     let articleDate = snippet.querySelector('.article-date');
-//     let articleURL = snippet.querySelector('.article-url');
+// then write function to loop through the articleArr and build an html snippet for each article.
 
-//     articleMedium.textContent = articleOnbjectArr[i].article_author;
-//     articleImage.setAttribute('src',articleOnbjectArr[i].article_image);
-//     articleTitle.textContent = articleOnbjectArr[i].article_description;
-//     articleDescription.textContent = articleOnbjectArr[i].article_description;
-//     articleAuthor.textContent = articleOnbjectArr[i].article_description;
-//     articleDate.textContent = articleOnbjectArr[i].article_date;
-//     articleURL.textContent = articleOnbjectArr[i].article_url;
-//     newsObj.push(snippet);
-//     console.log(snippet);
-// };
+for(i=0; i<= newsWrapper.length;i++){
 
+	
+
+}
+
+
+// }

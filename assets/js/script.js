@@ -90,6 +90,7 @@ eighties.addEventListener('click', function () {
 ninties.addEventListener('click', function () {
 
     setStage();
+    heroBgClass = heroBgClass + " bg-blue-600";
     selectedGenre = "ninties";
     getSpotifyResp(selectedGenre);
     genreText.remove();
@@ -100,7 +101,9 @@ ninties.addEventListener('click', function () {
     heroImage.setAttribute("src", "./assets/images/1990s-hero.png");
 });
 early.addEventListener('click', function () {
+
     setStage();
+    heroBgClass = heroBgClass + " bg-green-600";
     selectedGenre = "early";
     getSpotifyResp(selectedGenre);
     genreText.remove();
@@ -111,7 +114,9 @@ early.addEventListener('click', function () {
     heroImage.setAttribute("src", "./assets/images/2000s-hero.png");
 });
 current.addEventListener('click', function () {
+
     setStage();
+    heroBgClass = heroBgClass + " bg-pink-600"
     selectedGenre = "current";
     getSpotifyResp(selectedGenre);
     genreText.remove();
@@ -306,39 +311,40 @@ function endGame() {
     heroBg.appendChild(heroContainer);
     heroBg.appendChild(hero);
 
-    // // Contact Form    
-    // var contactContent = document.createElement('div');
-    // var contactContentH = document.createElement('h2');
-    // var contactContentP = document.createElement('p');
-    // var formParent = document.createElement('div');
-    // var formMain = document.createElement('form');
-    // var formEmail = document.createElement('label');
-    // var emailAddress = document.createElement('input');
-    // var formButtonParent = document.createElement('div');
-    // var contactChild = document.createElement('div');
-    // var contactParent = document.createElement('div');
+    // // Contact Form  
+    var contactContent = document.createElement('div');
+    var contactContentH = document.createElement('h2');
+    var contactContentP = document.createElement('p');
+    var formParent = document.createElement('div');
+    var formMain = document.createElement('form');
+    var formEmail = document.createElement('label');
+    var emailAddress = document.createElement('input');
+    var formButtonParent = document.createElement('div');
+    var contactChild = document.createElement('div');
+    var contactParent = document.createElement('div');
 
-    // contactChild.setAttribute('class', 'amax-w-7xl mx-auto py-24 px-4 sm:px-6 lg:py-32 lg:px-8 lg:flex lg:items-center');
-    // contactContent.setAttribute('classs', 'lg:w-0 lg:flex-1');
-    // contactContentH.setAttribute('classs', 'text-3xl font-extrabold text-gray-900 sm:text-4xl');    
-    // contactContentP.setAttribute('class', 'mt-3 max-w-3xl text-lg text-gray-500 ');
-    // formParent.setAttribute('classs', 'mt-8 lg:mt-0 lg:ml-8');
+    contactChild.setAttribute('class', 'max-w-4xl mx-auto py-10 px-10 sm:px-6 lg:py-32 lg:px-8 lg:flex lg:items-center');
+    contactContent.setAttribute('class', 'lg:w-4 lg:flex-1');
+    contactContentH.setAttribute('class', 'text-3xl font-extrabold text-gray-900 sm:text-4xl');    
+    contactContentP.setAttribute('class', 'mt-3 max-w-3xl text-lg text-gray-500 ');
+    formParent.setAttribute('class', 'mt-8 lg:mt-0 lg:ml-8');
     // formParent.appendChild('formMain');
-    // formMain.setAttribute('class', 'sm:flex form-main');
+    formMain.setAttribute('class', 'sm:flex form-main');
     // formMain.appendChild('formEmail');
     // formMain.appendChild('emailAddress');
-    // formEmail.setAttribute('classs', 'sr-only ');
-    // emailAddress.setAttribute('classs', 'mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0');    
-    // formButtonParent.setAttribute('classs', 'mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0');
+    formEmail.setAttribute('class', 'sr-only ');
+    emailAddress.setAttribute('class', 'mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0');    
+    formButtonParent.setAttribute('class', 'mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0');
     // formButtonParent.appendChild('formButtonText');
 
-    // contactChild.appendChild(contactContent);
-    // contactChild.appendChild(formParent);
-    // contactParent.setAttribute('classs', 'bg-white');
-    // contactContent.appednChild(contactContentH);
-    // contactContent.appednChild(contactContentP);
-    // contactParent.appendChild(contactChild);
-    // buttonWrapper.appendChild(contactParent);
+    contactChild.appendChild(contactContent);
+    contactChild.appendChild(formParent);
+    contactParent.setAttribute('class', 'bg-white');
+    contactContent.appendChild(contactContentH);
+    contactContent.appendChild(contactContentP);
+    contactParent.appendChild(contactChild);
+    buttonWrapper.appendChild(contactParent);
+ 
 
     startConfetti();
 
